@@ -1,0 +1,18 @@
+# Secrets -- never commit real API keys
+.env
+
+.venv/
+.DS_Store
+data_cache/
+state/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.csv
+!.env.example
+logs/
+*.db-journal
+*.db-wal
+*.db-shm
+.ruff_cache/
+

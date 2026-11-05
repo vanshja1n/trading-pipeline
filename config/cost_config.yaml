@@ -1,0 +1,39 @@
+# Indian Equity Market Transaction Costs Structure
+# Rates as mandated by SEBI / Finance Act / Exchanges
+delivery:
+  # STT: 0.1% on both Buy and Sell
+  stt_buy_rate: 0.0010
+  stt_sell_rate: 0.0010
+  # NSE Exchange transaction fee: 0.00345% of turnover
+  exchange_turnover_rate: 0.0000345
+  # SEBI turnover fee: Rs 10 per crore (0.0001%)
+  sebi_turnover_rate: 0.0000010
+  # Stamp duty: 0.015% on Buy only
+  stamp_duty_buy_rate: 0.00015
+  stamp_duty_sell_rate: 0.0
+  # GST: 18% on (Brokerage + Exchange fees + SEBI fees)
+  gst_rate: 0.18
+  # Brokerage: default 0 for discount broker delivery, or configurable flat fee
+  brokerage_per_order: 0.0
+  brokerage_pct: 0.0
+
+intraday:
+  # STT: 0.025% on Sell only
+  stt_buy_rate: 0.0
+  stt_sell_rate: 0.00025
+  # Exchange transaction fee: 0.00345%
+  exchange_turnover_rate: 0.0000345
+  # SEBI turnover fee: Rs 10 per crore
+  sebi_turnover_rate: 0.0000010
+  # Stamp duty: 0.003% on Buy only
+  stamp_duty_buy_rate: 0.00003
+  stamp_duty_sell_rate: 0.0
+  # GST: 18%
+  gst_rate: 0.18
+  # Brokerage: flat Rs 20 or 0.03% max
+  brokerage_per_order: 20.0
+  brokerage_pct: 0.0003
+  brokerage_cap: 20.0
+
+slippage:
+  default_bps: 5.0  # 5 basis points = 0.05%

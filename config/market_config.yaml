@@ -1,0 +1,18 @@
+# Indian Stock Market (NSE) Configuration
+market:
+  name: "National Stock Exchange of India"
+  exchange: "NSE"
+  currency: "INR"
+  currency_symbol: "₹"
+  timezone: "Asia/Kolkata"
+  trading_days_per_year: 248
+
+market_hours:
+  pre_open_start: "09:00:00"
+  pre_open_end: "09:08:00"
+  trading_open: "09:15:00"
+  trading_close: "15:30:00"
+
+symbols:
+  default_benchmark: "NIFTY50"
+  yfinance_suffix: ".NS"

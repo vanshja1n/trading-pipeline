@@ -1,0 +1,70 @@
+# Default Strategy Configurations for Indian Equities
+strategies:
+  sma_crossover:
+    name: "SMA Crossover"
+    description: "Classic trend following: Long when fast SMA > slow SMA"
+    params:
+      fast: 20
+      slow: 50
+      long_only: true
+    suitable_regimes: ["trending_up"]
+
+  ema_crossover:
+    name: "EMA Crossover"
+    description: "Responsive trend following using Exponential Moving Averages"
+    params:
+      fast: 9
+      slow: 21
+      long_only: true
+    suitable_regimes: ["trending_up", "momentum"]
+
+  rsi_reversion:
+    name: "RSI Mean Reversion"
+    description: "Buys oversold dips (RSI < 30) and exits on recovery (RSI > 55)"
+    params:
+      window: 14
+      entry: 30.0
+      exit: 55.0
+    suitable_regimes: ["ranging", "sideways"]
+
+  rsi_strategy:
+    name: "RSI Standard"
+    description: "Buys oversold (RSI <= 30) and closes at overbought (RSI >= 70)"
+    params:
+      window: 14
+      oversold: 30.0
+      overbought: 70.0
+      long_only: true
+    suitable_regimes: ["ranging", "mean_reverting"]
+
+  bollinger:
+    name: "Bollinger Mean Reversion"
+    description: "Buys when price dips below lower band, exits at middle SMA band"
+    params:
+      window: 20
+      num_std: 2.0
+    suitable_regimes: ["ranging", "low_volatility"]
+
+  donchian:
+    name: "Donchian Breakout"
+    description: "Turtle breakout: Long on N-bar high, exits on M-bar low"
+    params:
+      entry_window: 20
+      exit_window: 10
+    suitable_regimes: ["breakout", "trending_up"]
+
+  macd_trend:
+    name: "MACD Trend Filtered"
+    description: "Long when MACD histogram is positive and price is above 200 SMA"
+    params:
+      fast: 12
+      slow: 26
+      signal: 9
+      trend_filter: 200
+    suitable_regimes: ["bull_market", "trending_up"]
+
+  buy_and_hold:
+    name: "Buy & Hold"
+    description: "Benchmark strategy holding 100% long exposure"
+    params: {}
+    suitable_regimes: ["all"]

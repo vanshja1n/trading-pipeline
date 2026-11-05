@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  launchd agent template for the paper trading bot.
+
+  __PROJECT_DIR__ is substituted at install time by scripts/bot.sh install.
+  Do not load this file directly from the repo.
+
+  Design: launchd runs the Python process in the FOREGROUND and supervises it.
+  A wrapper that backgrounds the bot would exit immediately, and KeepAlive would
+  respawn it forever.
+
+  No start/stop schedule is needed. The bot checks Alpaca's market clock every
+  cycle and idles when the market is closed, including weekends and holidays.
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.autotrade.bot</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>__PROJECT_DIR__/.venv/bin/python</string>
+        <string>__PROJECT_DIR__/run_paper.py</string>
+        <string>--symbols</string>
+        <string>SPY</string>
+        <string>QQQ</string>
+        <string>GLD</string>
+        <string>--timeframe</string>
+        <string>1Min</string>
+        <string>--execute</string>
+    </array>
+
+    <!-- .env is read relative to the working directory. -->
+    <key>WorkingDirectory</key>
+    <string>__PROJECT_DIR__</string>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- Restart on crash, on clean exit, and at login. To actually stop it you
+         must unload the agent (scripts/bot.sh stop) -- `kill` alone just makes
+         launchd start it again. -->
+    <key>KeepAlive</key>
+    <true/>
+
+    <!-- Wait this long between respawns. Guards against a hot crash loop if the
+         API is unreachable or credentials are wrong. -->
+    <key>ThrottleInterval</key>
+    <integer>60</integer>
+
+    <key>StandardOutPath</key>
+    <string>__PROJECT_DIR__/logs/bot.log</string>
+    <key>StandardErrorPath</key>
+    <string>__PROJECT_DIR__/logs/bot.log</string>
+
+    <key>ProcessType</key>
+    <string>Background</string>
+</dict>
+</plist>
